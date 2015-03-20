@@ -1,37 +1,15 @@
 fileFormatVersion: 2
-guid: b23e1976a95fc41c885a3770ff126742
-timeCreated: 1426891378
+guid: e52c2164e6e4f45959ad1b347e1eb556
+timeCreated: 1426894676
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: bif
-    100002: //RootNode
-    100004: bus
-    100006: cruce
-    100008: curva
-    100010: recto
-    400000: bif
-    400002: //RootNode
-    400004: bus
-    400006: cruce
-    400008: curva
-    400010: recto
-    2300000: bif
-    2300002: bus
-    2300004: cruce
-    2300006: curva
-    2300008: recto
-    3300000: bif
-    3300002: bus
-    3300004: cruce
-    3300006: curva
-    3300008: recto
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: bus
-    4300002: curva
-    4300004: recto
-    4300006: bif
-    4300008: cruce
   materials:
     importMaterials: 1
     materialName: 0
