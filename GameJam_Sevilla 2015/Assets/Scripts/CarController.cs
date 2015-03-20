@@ -21,7 +21,7 @@ public class CarController : MonoBehaviour {
 	void Update () {
 		power=Input.GetAxis("Vertical") * enginePower * Time.deltaTime * 250.0f;
 		steer=Input.GetAxis("Horizontal") * maxSteer;
-		brake=Input.GetKey("space") ? GetComponent<Rigidbody>().mass * 0.1f: 0.0f;
+		brake=Input.GetKey("space") ? GetComponent<Rigidbody>().mass * 0.3f: 0.0f;
 		
 		GetCollider(0).steerAngle=steer;
 		GetCollider(1).steerAngle=steer;
@@ -38,8 +38,8 @@ public class CarController : MonoBehaviour {
 			GetCollider(1).brakeTorque=0;
 			GetCollider(2).brakeTorque=0;
 			GetCollider(3).brakeTorque=0;
-			GetCollider(2).motorTorque=power;
-			GetCollider(3).motorTorque=power;
+			GetCollider(2).motorTorque=enginePower * Time.deltaTime * 250f;
+			GetCollider(3).motorTorque=enginePower * Time.deltaTime * 250f;
 		}
 	}
 	
