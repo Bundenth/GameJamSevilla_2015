@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2ec1049a5b4c840268c0deb7951ff7b4
-timeCreated: 1426890800
+guid: b772630e19fb341e7b29107f72be67e5
+timeCreated: 1426890803
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: coche
+    4300000: recto.001
   materials:
     importMaterials: 1
     materialName: 0
