@@ -9,15 +9,18 @@ public class Player : MonoBehaviour {
 	public Text speedText;
 	public Text healthText;
 	public Text hostagesText;
+	public Text rescuedText;
 
 	public float lowSpeedTime = 3f;
 	public float speedLimit = 50f;
 	public float dropOffHostageTopSpeed = 60f;
+	public float rescueDistance = 2.5f;
 
 	private CarController car;
 	private float lowSpeedCounter;
 	private float health;
 	private int hostages;
+	public int rescued = 0;
 
 	private const float SPEED_CONVERSION = 10f;
 	private const float MAX_HEALTH = 100f;
@@ -38,7 +41,11 @@ public class Player : MonoBehaviour {
 		}
 		if(hostagesText) hostagesText.text = "Hostages: " + hostages;
 		if(healthText) healthText.text = "Health: " + health;
+		if(rescuedText) rescuedText.text = "Rescued: " + rescued;
 
+		if(Input.GetButtonDown ("Fire1")) {
+			ReleaseHostage();
+		}
 	}
 
 	void LateUpdate () {
@@ -47,7 +54,7 @@ public class Player : MonoBehaviour {
 			Debug.Log ("DEAD!");
 		}
 		if(CheckHostages()) {
-			Debug.Log ("VICTORY!");
+			Debug.Log ("FINISHED!");
 		}
 	}
 
@@ -73,16 +80,21 @@ public class Player : MonoBehaviour {
 		return hostages <= 0;
 	}
 
+	void ReleaseHostage() {
+		hostages--;
+		if(car.CurrentSpeed * SPEED_CONVERSION <= dropOffHostageTopSpeed) {
+			RaycastHit hit;
+			if(Physics.SphereCast(transform.position,0.5f,transform.right,out hit,rescueDistance,(1 << LayerMask.NameToLayer("Checkpoint")))) {
+				Debug.Log (hit.collider.name);
+				Debug.Log ("Well done! Rescued");
+				hit.collider.enabled = false;
+				rescued++;
+			} 
+		}
+	}
+
 	public void ApplyDamage(float damage) {
 		health -= damage;
 		Debug.Log ("Damaged!");
-	}
-
-	public bool DropOffHostage() {
-		if(car.CurrentSpeed * SPEED_CONVERSION <= dropOffHostageTopSpeed) {
-			hostages--;
-			return true;
-		}
-		return false;
 	}
 }
