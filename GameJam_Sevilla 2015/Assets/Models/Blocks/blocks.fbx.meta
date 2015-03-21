@@ -13,6 +13,7 @@ ModelImporter:
     100010: recto.005
     100012: recto.006
     100014: recto.007
+    100016: recto.008
     400000: bif
     400002: //RootNode
     400004: cruce
@@ -21,6 +22,7 @@ ModelImporter:
     400010: recto.005
     400012: recto.006
     400014: recto.007
+    400016: recto.008
     2300000: bif
     2300002: cruce
     2300004: curva
@@ -28,6 +30,7 @@ ModelImporter:
     2300008: recto.005
     2300010: recto.006
     2300012: recto.007
+    2300014: recto.008
     3300000: bif
     3300002: cruce
     3300004: curva
@@ -35,6 +38,7 @@ ModelImporter:
     3300008: recto.005
     3300010: recto.006
     3300012: recto.007
+    3300014: recto.008
     4300000: curva
     4300002: recto
     4300004: bif
@@ -42,6 +46,7 @@ ModelImporter:
     4300008: recto.007
     4300010: recto.006
     4300012: recto.005
+    4300014: recto.008
   materials:
     importMaterials: 1
     materialName: 0
