@@ -6,14 +6,14 @@ public class CameraFollow : MonoBehaviour {
 	public Transform target;
 	public float positionDamping = 3f;
 	public float angleDamping = 3f;
-
+	public float xAngle = 36f;
+	public float height = 3f;
+	public float distance = 2.5f;
 	private Vector3 offset;
-	private float xAngle;
 
 	// Use this for initialization
 	void Start () {
-		offset = target.position - transform.position;
-		xAngle = transform.eulerAngles.x;
+		offset = new Vector3(0,-height,distance);//target.position - transform.position;
 	}
 	
 	// Update is called once per frame
