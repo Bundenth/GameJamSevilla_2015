@@ -51,7 +51,7 @@ namespace UnityStandardAssets.Vehicles.Car
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
         public float CurrentSteerAngle{ get { return m_SteerAngle; }}
-        public float CurrentSpeed{ get { return m_Rigidbody.velocity.magnitude*2.23693629f; }}
+        public float CurrentSpeed{ get { return m_Rigidbody.velocity.magnitude*3.6f; }}
         public float MaxSpeed{get { return m_Topspeed; }}
         public float Revs { get; private set; }
         public float AccelInput { get; private set; }
@@ -130,7 +130,7 @@ namespace UnityStandardAssets.Vehicles.Car
         public void Move(float steering, float accel, float footbrake, float handbrake)
         {
 			accel = Mathf.Clamp (accel + (m_MinVel/m_Topspeed),-1,1);
-            for (int i = 0; i < 4; i++)
+			for (int i = 0; i < 4; i++)
             {
                 Quaternion quat;
                 Vector3 position;
@@ -272,7 +272,7 @@ namespace UnityStandardAssets.Vehicles.Car
         // these effects are controlled through the WheelEffects class
         private void CheckForWheelSpin()
         {
-            // loop through all wheels
+			// loop through all wheels
             for (int i = 0; i < 4; i++)
             {
                 WheelHit wheelHit;
