@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.Vehicles.Car;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CarController))]
 public class Player : MonoBehaviour {
+
+	public Text speedText;
+	public Text healthText;
+	public Text hostagesText;
 
 	public float lowSpeedTime = 3f;
 	public float speedLimit = 50f;
@@ -25,8 +30,18 @@ public class Player : MonoBehaviour {
 		hostages = NUM_HOSTAGES;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update() {
+		if(speedText) {
+			speedText.text = "Speed: " + car.CurrentSpeed*SPEED_CONVERSION;
+			if(car.CurrentSpeed*SPEED_CONVERSION < speedLimit) speedText.color = Color.red;
+			else speedText.color = Color.white;
+		}
+		if(hostagesText) hostagesText.text = "Hostages: " + hostages;
+		if(healthText) healthText.text = "Health: " + health;
+
+	}
+
+	void LateUpdate () {
 		if(CheckSpeedLimit() || CheckHealth()) {
 			// DIE!
 			Debug.Log ("DEAD!");
