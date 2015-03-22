@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
 	public GameObject explosionPrefab;
 
 	public Text speedText;
-	public Text healthText;
+	public Slider healthSlider;
 	public Text hostagesText;
 	public Text rescuedText;
 	public Text messageText;
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour {
 
 	void Update() {
 		if(speedText) {
-			speedText.text = "Speed: " + car.CurrentSpeed*SPEED_CONVERSION;
+			speedText.text = (int)(car.CurrentSpeed*SPEED_CONVERSION) + " Km/h";
 			if(car.CurrentSpeed*SPEED_CONVERSION < speedLimit) {
 				speedText.color = Color.red;
 			} else if(car.CurrentSpeed*SPEED_CONVERSION < dropOffHostageTopSpeed) {
@@ -73,7 +73,7 @@ public class Player : MonoBehaviour {
 			}
 		}
 		if(hostagesText) hostagesText.text = "Hostages: " + hostages;
-		if(healthText) healthText.text = "Health: " + health;
+		if(healthSlider) healthSlider.value = health / MAX_HEALTH;
 		if(rescuedText) rescuedText.text = "Rescued: " + rescued;
 
 		if(Input.GetButtonDown ("Fire1")) {
