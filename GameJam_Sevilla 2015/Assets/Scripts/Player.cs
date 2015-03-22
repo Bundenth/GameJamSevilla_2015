@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 	//
 
 	public GameObject[] hostagesPrefabs;
+	public GameObject explosionPrefab;
 
 	public Text speedText;
 	public Text healthText;
@@ -86,6 +87,7 @@ public class Player : MonoBehaviour {
 			Debug.Log ("DEAD!");
 			gameOverPanel.SetActive(true);
 			gameObject.SetActive(false);
+			GameObject.Instantiate (explosionPrefab,transform.position,Quaternion.identity);
 		}
 		if(CheckHostages()) {
 			Debug.Log ("FINISHED!");
@@ -124,7 +126,7 @@ public class Player : MonoBehaviour {
 			h.PushHostage(transform.forward + transform.right);
 			hostages--;
 		} else {
-			MessageLog("Too fast for the hostages!");
+			MessageLog("Too fast for the hostages to jump!");
 		}
 		/*hostages--;
 

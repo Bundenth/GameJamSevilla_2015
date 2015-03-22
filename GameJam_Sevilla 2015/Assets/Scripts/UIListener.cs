@@ -6,6 +6,7 @@ public class UIListener : MonoBehaviour {
 
 	public Text radioText;
 	public Image radioImage;
+	public UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration effect;
 
 	public float messageTime = 10f;
 	public float timeSlowdown = 0.5f;
@@ -34,10 +35,18 @@ public class UIListener : MonoBehaviour {
 		while(!string.IsNullOrEmpty(radioText.text)) 
 			yield return new WaitForSeconds(messageTime * timeSlowdown);
 
+		effect.enabled = true;
 		Time.timeScale = timeSlowdown;
 		radioText.text = "[RADIO]: " + m;
 		radioImage.gameObject.SetActive(true);
-		yield return new WaitForSeconds(messageTime * timeSlowdown);
+		float counter = 0;
+		effect.chromaticAberration = 0;
+		while(messageTime * timeSlowdown > counter) {
+			counter += Time.deltaTime;
+			effect.chromaticAberration += counter;
+			yield return new WaitForEndOfFrame();
+		}
+		effect.enabled = false;
 		radioText.text = "";
 		radioImage.gameObject.SetActive(false);
 		Time.timeScale = 1f;
@@ -46,7 +55,7 @@ public class UIListener : MonoBehaviour {
 	// Radio events
 	void OnHostageSaved() {
 		if(savedMessage) return;
-		MessageLog ("Bad news: checkpoint broke. Seems you can only use them once...");
+		MessageLog ("Bad news: checkpoint is broken. Seems you can only use them once...");
 		savedMessage = true;
 	}
 
