@@ -13,10 +13,6 @@ public class UIListener : MonoBehaviour {
 	public float messageTime = 10f;
 	public float timeSlowdown = 0.5f;
 
-	private bool savedMessage = false;
-	private bool lowSpeedMessage = false;
-	private bool hitMessage = false;
-
 	void Start() {
 		HostageDetector.OnHostageSaved += OnHostageSaved;
 		Player.OnLowSpeed += OnLowSpeed;
@@ -69,21 +65,21 @@ public class UIListener : MonoBehaviour {
 
 	// Radio events
 	void OnHostageSaved() {
-		if(savedMessage) return;
+		if(PlayerPrefs.GetInt("SAVED_MESSAGE",0) == 1) return;
 		MessageLog ("Bad news: checkpoint is broken. Seems you can only use them once...");
-		savedMessage = true;
+		PlayerPrefs.SetInt ("SAVED_MESSAGE",1);
 	}
 
 	void OnLowSpeed() {
-		if(lowSpeedMessage) return;
+		if(PlayerPrefs.GetInt("LOWSPEED_MESSAGE",0) == 1) return;
 		MessageLog ("Try to keep up the pace. Any slower than 50 Km/h and the bomb will go off!");
-		lowSpeedMessage = true;
+		PlayerPrefs.SetInt ("LOWSPEED_MESSAGE",1);
 	}
 
 	void OnHit () {
-		if(hitMessage) return;
+		if(PlayerPrefs.GetInt("HIT_MESSAGE",0) == 1) return;
 		MessageLog ("I know it's hard, but keep away from other cars or the bomb might go off");
-		hitMessage = true;
+		PlayerPrefs.SetInt ("HIT_MESSAGE",1);
 	}
 
 	// GUI events

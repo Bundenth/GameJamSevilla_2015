@@ -86,9 +86,11 @@ public class Player : MonoBehaviour {
 		if(CheckSpeedLimit() || CheckHealth()) {
 			// DIE!
 			Debug.Log ("DEAD!");
-			gameOverPanel.SetActive(true);
+			//Invoke ("ActivateGameOver",5f);
 			GameObject.Instantiate (explosionPrefab,transform.position,Quaternion.identity);
-			Destroy (gameObject);//gameObject.SetActive(false);
+			//DeactivateGameObject();//
+			gameOverPanel.SetActive (true);
+			gameObject.SetActive(false);
 		}
 		if(CheckHostages()) {
 			Debug.Log ("FINISHED!");
@@ -130,6 +132,14 @@ public class Player : MonoBehaviour {
 			MessageLog("Too fast for the hostages to jump!");
 		}
 
+	}
+
+	void ActivateGameOver() {
+		gameOverPanel.SetActive(true);
+	}
+
+	void DeactivateGameObject() {
+		GetComponent<Renderer>().enabled = false;
 	}
 
 	void EndGame() {
