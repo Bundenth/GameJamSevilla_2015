@@ -6,6 +6,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CarController))]
 public class Player : MonoBehaviour {
 
+	// EVENTS
+	public delegate void LowSpeed();
+	public delegate void Hit();
+
+	public static event LowSpeed OnLowSpeed;
+	public static event Hit OnHit;
+	//
+
 	public GameObject[] hostagesPrefabs;
 
 	public Text speedText;
@@ -28,17 +36,21 @@ public class Player : MonoBehaviour {
 	private float lowSpeedCounter;
 	private float health;
 	private int hostages;
-	public int rescued = 0;
+	private int rescued = 0;
+	private float startTime;
 
 	private const float SPEED_CONVERSION = 10f;
 	private const float MAX_HEALTH = 100f;
 	private const int NUM_HOSTAGES = 10;
+	private const float GRACE_PERIOD = 5;
 
 	// Use this for initialization
 	void Start () {
 		car = GetComponent<CarController>();
 		health = MAX_HEALTH;
 		hostages = NUM_HOSTAGES;
+		startTime = Time.time;
+
 		HomingHostage.OnHostageKilled += OnHostageKilled;
 		HostageDetector.OnHostageSaved += OnHostageSaved;
 	}
@@ -83,7 +95,9 @@ public class Player : MonoBehaviour {
 	}
 
 	bool CheckSpeedLimit() {
+		if(startTime + GRACE_PERIOD > Time.time) return false;
 		if(car.CurrentSpeed * SPEED_CONVERSION < speedLimit) {
+			if(OnLowSpeed != null) OnLowSpeed();
 			lowSpeedCounter += Time.deltaTime;
 		} else {
 			lowSpeedCounter = 0;
@@ -164,5 +178,6 @@ public class Player : MonoBehaviour {
 	public void ApplyDamage(float damage) {
 		health -= damage;
 		MessageLog("Be careful!");
+		if(OnHit != null) OnHit();
 	}
 }

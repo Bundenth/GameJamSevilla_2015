@@ -14,6 +14,16 @@ public class HostageDetector : MonoBehaviour {
 			// HOSTAGE SAVED!
 			Destroy(col.gameObject);
 			if(OnHostageSaved != null) OnHostageSaved();
+			DeactivateCheckpoint();
+		}
+	}
+
+	private void DeactivateCheckpoint() {
+		Renderer[] rs = GetComponents<Renderer>();
+		foreach(Renderer r in rs) {
+			foreach(Material m in r.materials) {
+				m.color = Color.grey;
+			}
 		}
 	}
 }
