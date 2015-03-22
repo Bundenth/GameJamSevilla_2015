@@ -6,10 +6,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CarController))]
 public class Player : MonoBehaviour {
 
+	public GameObject[] hostagesPrefabs;
+
 	public Text speedText;
 	public Text healthText;
 	public Text hostagesText;
 	public Text rescuedText;
+	public Text messageText;
 
 	// ENDINGS
 	public GameObject gameOverPanel;
@@ -36,6 +39,13 @@ public class Player : MonoBehaviour {
 		car = GetComponent<CarController>();
 		health = MAX_HEALTH;
 		hostages = NUM_HOSTAGES;
+		HomingHostage.OnHostageKilled += OnHostageKilled;
+		HostageDetector.OnHostageSaved += OnHostageSaved;
+	}
+
+	void OnDisable() {
+		HomingHostage.OnHostageKilled -= OnHostageKilled;
+		HostageDetector.OnHostageSaved -= OnHostageSaved;
 	}
 
 	void Update() {
@@ -95,7 +105,15 @@ public class Player : MonoBehaviour {
 	}
 
 	void ReleaseHostage() {
-		hostages--;
+		if(car.CurrentSpeed * SPEED_CONVERSION <= dropOffHostageTopSpeed) {
+			HomingHostage h = (GameObject.Instantiate (hostagesPrefabs[Random.Range (0,hostagesPrefabs.Length)],transform.position + Vector3.up*0.5f,Quaternion.identity) as GameObject).GetComponent<HomingHostage>();
+			h.PushHostage(transform.forward + transform.right);
+			hostages--;
+		} else {
+			MessageLog("Too fast for the hostages!");
+		}
+		/*hostages--;
+
 		Debug.DrawRay(transform.position+Vector3.up*0.1f,transform.right,Color.red,rescueDistance);
 		if(car.CurrentSpeed * SPEED_CONVERSION <= dropOffHostageTopSpeed) {
 			RaycastHit hit;
@@ -104,7 +122,7 @@ public class Player : MonoBehaviour {
 				hit.collider.enabled = false;
 				rescued++;
 			} 
-		}
+		}*/
 	}
 
 	void EndGame() {
@@ -120,9 +138,31 @@ public class Player : MonoBehaviour {
 			gameOverPanel.SetActive(true);
 		}
 	}
+
+	void MessageLog(string message) {
+		StartCoroutine (logMessage(message));
+	}
+
+	IEnumerator logMessage(string m) {
+		while(!string.IsNullOrEmpty(messageText.text)) 
+			yield return new WaitForEndOfFrame();
+
+		messageText.text = m;
+		yield return new WaitForSeconds(1f);
+		messageText.text = "";
+	}
+
+	public void OnHostageKilled() {
+		MessageLog("Hostage dead!");
+	}
+
+	public void OnHostageSaved() {
+		rescued++;
+		MessageLog("Saved!");
+	}
 	
 	public void ApplyDamage(float damage) {
 		health -= damage;
-		Debug.Log ("Damaged!");
+		MessageLog("Be careful!");
 	}
 }
