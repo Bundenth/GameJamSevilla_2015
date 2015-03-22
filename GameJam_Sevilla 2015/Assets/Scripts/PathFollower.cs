@@ -10,13 +10,14 @@ public class PathFollower : MonoBehaviour {
 	private int nextIndex = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		agent = GetComponent<NavMeshAgent>();
 		agent.SetDestination(pathPoints[0].position);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(Time.frameCount % 3 == 0) return;
 		if(agent.remainingDistance <= agent.stoppingDistance) {
 			nextIndex++;
 			if(nextIndex >= pathPoints.Length) nextIndex = 0;

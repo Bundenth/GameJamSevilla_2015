@@ -18,6 +18,7 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		if(!target) return;
 		float currentAngle = transform.eulerAngles.y;
 		float desiredAngle = target.transform.eulerAngles.y;
 		float angle = Mathf.LerpAngle(currentAngle, desiredAngle, Time.deltaTime * angleDamping);

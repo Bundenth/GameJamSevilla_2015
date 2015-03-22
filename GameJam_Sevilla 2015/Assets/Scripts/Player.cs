@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.Vehicles.Car;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(CarController))]
 public class Player : MonoBehaviour {
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour {
 		if(healthSlider) healthSlider.value = health / MAX_HEALTH;
 		if(rescuedText) rescuedText.text = "Rescued: " + rescued;
 
-		if(Input.GetButtonDown ("Fire1")) {
+		if(CrossPlatformInputManager.GetButtonDown ("Fire1")) {
 			ReleaseHostage();
 		}
 	}
@@ -86,8 +87,8 @@ public class Player : MonoBehaviour {
 			// DIE!
 			Debug.Log ("DEAD!");
 			gameOverPanel.SetActive(true);
-			gameObject.SetActive(false);
 			GameObject.Instantiate (explosionPrefab,transform.position,Quaternion.identity);
+			Destroy (gameObject);//gameObject.SetActive(false);
 		}
 		if(CheckHostages()) {
 			Debug.Log ("FINISHED!");
@@ -128,17 +129,7 @@ public class Player : MonoBehaviour {
 		} else {
 			MessageLog("Too fast for the hostages to jump!");
 		}
-		/*hostages--;
 
-		Debug.DrawRay(transform.position+Vector3.up*0.1f,transform.right,Color.red,rescueDistance);
-		if(car.CurrentSpeed * SPEED_CONVERSION <= dropOffHostageTopSpeed) {
-			RaycastHit hit;
-			if(Physics.Raycast(transform.position+Vector3.up*0.1f,transform.right,out hit,rescueDistance,(1 << LayerMask.NameToLayer("Checkpoint")))) {
-				Debug.Log ("Well done! Rescued " + hit.collider.name);
-				hit.collider.enabled = false;
-				rescued++;
-			} 
-		}*/
 	}
 
 	void EndGame() {

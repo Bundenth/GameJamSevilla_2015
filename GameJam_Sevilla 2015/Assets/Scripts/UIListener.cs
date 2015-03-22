@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class UIListener : MonoBehaviour {
 
+	public GameObject quitPanel;
 	public Text radioText;
 	public Image radioImage;
 	public UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration effect;
@@ -26,6 +28,19 @@ public class UIListener : MonoBehaviour {
 		Player.OnLowSpeed -= OnLowSpeed;
 		Player.OnHit -= OnHit;
 	}
+
+	void Update() {
+		if(Input.GetKeyDown(KeyCode.Escape)) {
+			if(Time.timeScale > 0f) {
+				quitPanel.SetActive(true);
+				Time.timeScale = 0f;
+			} else {
+				quitPanel.SetActive(false);
+				Time.timeScale = 1f;
+			}
+		}
+	}
+
 
 	void MessageLog(string message) {
 		StartCoroutine (logMessage(message));
@@ -76,5 +91,8 @@ public class UIListener : MonoBehaviour {
 		Application.LoadLevel (0);
 	}
 
+	public void OnQuitClicked() {
+		Application.Quit();
+	}
 
 }
