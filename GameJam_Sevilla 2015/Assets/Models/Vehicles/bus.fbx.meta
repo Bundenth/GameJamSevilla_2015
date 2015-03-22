@@ -6,10 +6,35 @@ ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
+    100002: bus.001
+    100004: wheel_front_left
+    100006: wheel_front_right
+    100008: wheel_rear_left
+    100010: wheel_rear_right
     400000: //RootNode
+    400002: bus.001
+    400004: wheel_front_left
+    400006: wheel_front_right
+    400008: wheel_rear_left
+    400010: wheel_rear_right
     2300000: //RootNode
+    2300002: bus.001
+    2300004: wheel_front_left
+    2300006: wheel_front_right
+    2300008: wheel_rear_left
+    2300010: wheel_rear_right
     3300000: //RootNode
+    3300002: bus.001
+    3300004: wheel_front_left
+    3300006: wheel_front_right
+    3300008: wheel_rear_left
+    3300010: wheel_rear_right
     4300000: bus
+    4300002: wheel_rear_right
+    4300004: wheel_rear_left
+    4300006: wheel_front_right
+    4300008: wheel_front_left
+    4300010: bus.001
   materials:
     importMaterials: 1
     materialName: 0
